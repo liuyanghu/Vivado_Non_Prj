@@ -1,0 +1,1 @@
+`define DAT_WIDTH 4
