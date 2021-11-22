@@ -17,9 +17,6 @@ set_property file_type {Verilog Header} -quiet [get_files -quiet $HeaderFileSet]
 # set_property file_type {Verilog Header} -quiet [get_files -quiet $HeaderFileSet]
 
 # ------------------------------------------------------------
-# # generate ips
-# source [file join $tclDir run_ip_gen.tcl]
-
 # read existed ips
 read_ip [findFiles [file join $srcDir ips] *.xci]
 
