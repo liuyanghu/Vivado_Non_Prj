@@ -32,15 +32,20 @@
 3. verilog header文件：修改`run_set_env.tcl`中的列表变量`HeaderFileSet`，以空格分隔，每个名字是一个Header文件。如果你的源文件中使用了`include`选项，则必须执行这一步，显式地将这些文件的file type设置为verilog header，若没有include文件，`{}`内容直接留空即可![image-20211121174652348](readme_figs/image-20211121174652348.png)
 
 4. ip的生成：
-   1. 如果ip已经存在或在其他地方生成完成，直接将其或者`.xci`放入<prj_dir>/src/ips中，并且如图修改代码`run_read_src.tcl`
+   1. 如果ip已经存在或在其他地方生成完成，直接将其或者`.xci`放入<prj_dir>/src/ips中即可![image-20211122101436967](readme_figs/image-20211122101436967.png)
 
-   ![image-20211121180747873](readme_figs/image-20211121180747873.png)
+   2. 如果ip要通过脚本生成，那么将生成ip的脚本放入<prj_dir>/src/ip_scripts中，然后执行
 
-   2. 如果ip要通过脚本生成，那么将生成ip的脚本放入<prj_dir>/src/ip_scripts中，然后如图修改`run_read_src.tcl`
+   ```tcl
+   source ./Prj_Tcl/run_set_env.tcl
+   source ./Prj_Tcl/run_ip_gen.tcl
+   ```
 
-   ![image-20211121180708003](readme_figs/image-20211121180708003.png)
+   3. 使用脚本生成生成ip时可以选择以OOC方式先行综合ip，取消注释`run_ip_gen.tcl`中下图代码即可。工程综合时默认也会OOC综合ip，所以这一步可选，默认关闭
 
-   3. 如果是使用ip生成脚本，只需生成一次即可，故按b修改生成完成后，还需要改回a中所示状态
+   ![image-20211122100401046](readme_figs/image-20211122100401046.png)
+
+   4. 也可以在读取verilog源代码之后，手动使用`create_ip`命令自行添加，脚本熟练完全可以自行任意修改
 
 ### 使用演示
 
@@ -96,3 +101,7 @@ source ./Prj_Tcl/run_set_env.tcl
 * 文件夹需要提前创建，否则综合报dcp写入权限错误
 * 对一些功能进行了拆分，创建了不同的tcl脚本
 * 撰写了脚本介绍和使用教程
+
+V0.3 2021-11-21
+
+* 改变了ip生成的方式，工程运行时只会去读取ip，ip必须要单独生成或者复制已存在的
